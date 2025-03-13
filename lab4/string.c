@@ -33,9 +33,22 @@ bool pn_str_cmp(const char *a, const char * b) {
     return true;
 }
 
-void pn_str_capitalize(char *str) {}
+void pn_str_capitalize(char *str) {
+    if (str[0] >= 'a' && str[0] <= 'z') {
+        str[0] = str[0] - ('a' - 'A'); 
+    }
+}
 
-void pn_str_trim(char *str) {}
+void pn_str_trim(char *str) {
+    int start = 0;
+    int end = pn_str_len(str) - 1;
+
+    while (str[start] == ' ') {
+        start++;
+    }
+
+
+}
 
 void pn_str_rev(char *str) {}
 
