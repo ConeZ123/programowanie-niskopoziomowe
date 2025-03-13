@@ -2,7 +2,17 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-int pn_str_len(const char *str) {}
+int pn_str_len(const char *str) {
+    if(str == NULL) {
+        return -1;
+    }
+    int length = 0;
+
+    while (str[length] == "\0") {
+        length++;
+    }
+    return length;
+}
 
 bool pn_str_cmp(const char *a, const char * b) {}
 
