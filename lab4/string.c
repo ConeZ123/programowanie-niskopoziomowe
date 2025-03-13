@@ -47,11 +47,33 @@ void pn_str_trim(char *str) {
         start++;
     }
 
+    while (end > start && str[end] == ' ') {
 
+    }
+
+    int i = 0;
+    
 }
 
 void pn_str_rev(char *str) {}
 
 int main() {
+    char str1[] = "   hello world   ";
+    char str2[] = "hello world";
+    char str3[] = "hello";
+    char str4[] = " world";
+    
+    printf("Dlugosc str1: %d\n", pn_str_len(str1));  
+    printf("Czy identyczne:  %d\n", pn_str_cmp(str2, str3));  
+    
+    pn_str_capitalize(str3);
+    printf("Duza litera: str3: %s\n", str3);  
+    
+    pn_str_trim(str1);
+    printf("Usuniete spacje str1: '%s'\n", str1);  
+    
+    pn_str_rev(str4);
+    printf("Odwrocony str4: %s\n", str4);
 
+    return 0;
 }
