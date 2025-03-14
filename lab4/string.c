@@ -40,6 +40,10 @@ void pn_str_capitalize(char *str) {
 }
 
 void pn_str_trim(char *str) {
+    if (!str) {
+        return;
+    }
+
     int start = 0;
     int end = pn_str_len(str) - 1;
 
@@ -48,32 +52,51 @@ void pn_str_trim(char *str) {
     }
 
     while (end > start && str[end] == ' ') {
-
+        end--;
     }
 
     int i = 0;
+    while (start <= end) {
+        str[i++] = str[start++];
+    }
+
+    str[i] = '\0';
     
 }
 
-void pn_str_rev(char *str) {}
+void pn_str_rev(char *str) {
+    if (!str) {
+        return;
+    } 
+
+    int len = pn_str_len(str);
+    int left = 0, right = len - 1;
+
+    while (left < right) {
+        char temp = str[left];
+        str[left] = str[right];
+        str[right] = temp;
+        left++;
+        right--;
+    }
+}
 
 int main() {
-    char str1[] = "   hello world   ";
-    char str2[] = "hello world";
-    char str3[] = "hello";
-    char str4[] = " world";
-    
-    printf("Dlugosc str1: %d\n", pn_str_len(str1));  
-    printf("Czy identyczne:  %d\n", pn_str_cmp(str2, str3));  
-    
-    pn_str_capitalize(str3);
-    printf("Duza litera: str3: %s\n", str3);  
-    
-    pn_str_trim(str1);
-    printf("Usuniete spacje str1: '%s'\n", str1);  
-    
-    pn_str_rev(str4);
-    printf("Odwrocony str4: %s\n", str4);
+    char test1[] = " test ";
+    char test2[] = "hello";
+    char test3[] = "world";
+
+    printf("Długość 'hello': %d\n", pn_str_len(test2));
+    printf("Porównanie 'hello' i 'world': %s\n", pn_str_cmp(test2, test3) ? "tak" : "nie");
+
+    pn_str_capitalize(test2);
+    printf("Po kapitalizacji: %s\n", test2);
+
+    pn_str_trim(test1);
+    printf("Po trimowaniu: '%s'\n", test1);
+
+    pn_str_rev(test3);
+    printf("Po odwróceniu: %s\n", test3);
 
     return 0;
 }
