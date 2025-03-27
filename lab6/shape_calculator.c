@@ -3,7 +3,7 @@
 #include <math.h>
 #include <string.h>
 
-const M_PI = 3.14; // M_PI z math.h nie dziala (?)
+#define M_PI 3.14159265358979323846 // M_PI z math.h nie dziala (?)
 
 enum Shape {
     SHAPE_CIRCLE,
@@ -37,7 +37,7 @@ enum Shape parse_shape(const char *shape) {
 enum Oper parse_operation(const char *operation) {
     if (strcmp(operation, "length") == 0) {
         return OPER_FROM_LENGTH;
-    } else if (strcmp(operation, "area" == 0)) {
+    } else if (strcmp(operation, "area") == 0) {
         return OPER_FROM_LENGTH;
     } else if (strcmp(operation, "perimeter") == 0) {
         return OPER_FROM_PERIMETER;
@@ -83,29 +83,33 @@ void calculate(struct Result *result, enum Shape shape, enum Oper operation, dou
 }
 
 void print(const struct Result *result) {
-    printf("Length: \n", (*result).length);
-    printf("Area: \n", (*result).area);
-    printf("Perimeter: \n", (*result).perimeter);
+    printf("Length: %.3f\n", (*result).length);
+    printf("Area: %.3f\n", (*result).area);
+    printf("Perimeter: %.3f\n", (*result).perimeter);
 }
 
 int main(int argc, char *argv[]) {
     if (argc != 4) {
         printf("Invalid number of arguments");
+        return 1;
     }
 
     enum Shape shape = parse_shape(argv[1]);
     if (shape == SHAPE_INVALID) {
         printf("Invalid input shape! \n");
+        return 1;
     }
 
     enum Oper operation = parse_operation(argv[2]);
     if (operation == OPER_INVALID) {
         printf("Invalid input type! \n");
+        return 1;
     }
 
     double value;
     if (sscanf(argv[3], "%lf", &value) != 1 || value <= 0) {
         printf("Invalid input value!\n");
+        return 1;
     }
 
     struct Result result;
