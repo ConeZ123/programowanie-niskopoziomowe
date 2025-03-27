@@ -81,4 +81,9 @@ void calculate(struct Result *result, enum Shape shape, enum Oper operation, dou
         }
     }
 }
-void print(const struct Result *result);
+
+void print(const struct Result *result) {
+    printf("Length: \n", (*result).length);
+    printf("Area: \n", (*result).area);
+    printf("Perimeter: \n", (*result).perimeter);
+}
