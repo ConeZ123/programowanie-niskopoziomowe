@@ -87,3 +87,30 @@ void print(const struct Result *result) {
     printf("Area: \n", (*result).area);
     printf("Perimeter: \n", (*result).perimeter);
 }
+
+int main(int argc, char *argv[]) {
+    if (argc != 4) {
+        printf("Invalid number of arguments");
+    }
+
+    enum Shape shape = parse_shape(argv[1]);
+    if (shape == SHAPE_INVALID) {
+        printf("Invalid input shape! \n");
+    }
+
+    enum Oper operation = parse_operation(argv[2]);
+    if (operation == OPER_INVALID) {
+        printf("Invalid input type! \n");
+    }
+
+    double value;
+    if (sscanf(argv[3], "%lf", &value) != 1 || value <= 0) {
+        printf("Invalid input value!\n");
+    }
+
+    struct Result result;
+    calculate(&result, shape, operation, value);
+    print(&result);
+
+    return 0;
+}
