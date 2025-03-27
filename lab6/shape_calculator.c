@@ -33,6 +33,17 @@ enum Shape parse_shape(const char *shape) {
     
 }
 
-enum Oper parse_operation(const char *operation);
+enum Oper parse_operation(const char *operation) {
+    if (strcmp(operation, "length") == 0) {
+        return OPER_FROM_LENGTH;
+    } else if (strcmp(operation, "area" == 0)) {
+        return OPER_FROM_LENGTH;
+    } else if (strcmp(operation, "perimeter") == 0) {
+        return OPER_FROM_PERIMETER;
+    } else {
+        return OPER_INVALID;
+    }
+    
+}
 void calculate(struct Result *result, enum Shape shape, enum Oper operation, double value);
 void print(const struct Result *result);
