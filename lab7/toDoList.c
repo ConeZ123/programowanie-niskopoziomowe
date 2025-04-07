@@ -12,17 +12,14 @@ struct Task *tail = NULL;
 
 struct Task* task_new(const char *name) {
     struct Task *task = malloc(sizeof(struct Task));
+    
+    if (!task) {
+        printf("Błąd alokacji pamięci");
+    }
+
     task->name = strdup(name);
     task->next = NULL;
-
-    if (tail != NULL) {
-        tail->next = task;
-    }
-    tail = task;
-
-    if (head == NULL) {
-        head = tail;
-    }
+    return task;
 }
 
 void task_free(struct Task *task) {
@@ -34,10 +31,15 @@ void task_free(struct Task *task) {
 
 void show_tasks() {
     struct Task *current = head;
-    if (current != NULL) {
-        printf("%s", current -> name);
+    if (current == NULL) {
+        printf("Brak zadań. \n");
+    }
+    
+    printf("Zadania: \n");
+    while (current != NULL) {
+        printf("- %s\n", current -> name);
         current = current -> next;
-    }    
+    }
 }
 
 void add_task(const char *name) {
@@ -46,6 +48,7 @@ void add_task(const char *name) {
         tail -> next = new_task;
     }
     tail = new_task;
+
     if (head == NULL) {
         head = tail = new_task;
     }
@@ -55,6 +58,7 @@ void remove_task() {
     if (head == NULL) {
         printf("Brak zadań w kolejce");
     }
+
     struct Task *task_remove = head;
     head = head -> next;
 
@@ -67,22 +71,34 @@ void remove_task() {
 }
 
 int main() {
-    add_task("Wynieś śmieci \n");
-    add_task("Zapłać rachunki \n");
-    add_task("Naucz się na kolokwium \n");
-    add_task("Wyśpij się \n");
-    
-    printf("Wszystkie zadania: \n");
-    show_tasks();
+    int option;
+    char name[20];
 
-    printf("Usuwanie zadania: \n");
-    remove_task();
+    while (1) {
+        printf("\n1. Pokaż zadania \n");
+        printf("2. Dodaj zadanie \n");
+        printf("3. Usuń pierwsze zadanie \n");
+        printf("4. Wyjście \n");
+        printf("Wybierz: ");
+        scanf("%d", &option);
+        getchar();
 
-    printf("Pokaż wszystkie zadania: \n");
-    show_tasks();
+        if (option == 1) {
+            show_tasks();
+        } else if (option == 2) {
+            printf("Podaj nazwę zadania: ");
+            scanf("%[^\n]", name);
+            add_task(name);
+        } else if (option == 3) {
+            remove_task();
+        } else if (option == 4) {
+            break;
+        } 
+    }
 
     while (head != NULL) {
         remove_task();
     }
+
     return 0;
 }
