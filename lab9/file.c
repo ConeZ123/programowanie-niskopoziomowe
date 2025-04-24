@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-
-
+#include "file.h"
 
 void file_hello(const char *filename) {
     FILE *fp = fopen(filename, 'w');
